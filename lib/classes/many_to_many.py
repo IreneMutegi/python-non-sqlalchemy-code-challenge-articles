@@ -2,8 +2,6 @@ class Author:
     def __init__(self, name):
         if not isinstance(name, str) or len(name) == 0:
             raise ValueError("Name must be a non-empty string.")
-        if hasattr(self, "_name"):  # Ensures name is immutable after instantiation
-            raise AttributeError("Name cannot be changed after the author is instantiated.")
         self._name = name
         self._articles = []  # Stores articles written by this author
 
@@ -37,7 +35,7 @@ class Magazine:
             raise ValueError("Category must be a non-empty string.")
         self._name = name
         self._category = category
-        self._articles = []
+        self._articles = [] 
 
     @property
     def name(self):
@@ -90,14 +88,13 @@ class Article:
             raise TypeError("Magazine must be an instance of the Magazine class.")
         if not isinstance(title, str) or not (5 <= len(title) <= 50):
             raise ValueError("Title must be a string between 5 and 50 characters.")
-        if hasattr(self, "_title"):  # Ensures title is immutable after instantiation
-            raise AttributeError("Title cannot be changed after the article is instantiated.")
         self._author = author
         self._magazine = magazine
         self._title = title
         Article.all.append(self)
         author.articles().append(self)
         magazine.articles().append(self)
+        
 
     @property
     def title(self):
